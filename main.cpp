@@ -1,10 +1,22 @@
+/**
+ * Test for observer events pattern in cpp.
+ * 
+ * Quick protoypeimplementation as proof of concept/test
+ * Event type / name is a string
+ * TODO: Event parameters ????
+ * EventDispatcher Class - holds all the listener functions for an event
+ * EventDispatcherCollection - holds a list with different type of events that can be triggered
+ * 
+ * Author: Kent Tang Charlo
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <map>
 
-// In order to handle different kind of aparameters there should be a pointer and an object class to reconstruct
-// maybe using variable parameters?
+// In order to handle different kinds of parameters there should be a pointer and a class to reconstruct the object in the pointer
+// maybe using variable parameters? or templates?
 // TODO: later
 class EventDispatcher
 {
@@ -24,8 +36,7 @@ void EventDispatcher::addListener(void (*f)(int))
 
 void EventDispatcher::removeListener(void (*f)(int))
 {
-    // mListeners.erase( std::remove( mListeners.begin(), mListeners.end(), f ), mListeners.end() );
-    //having toruble with the rmove function...
+
 }
 
 void EventDispatcher::dispatchEvent(int i)
@@ -53,7 +64,7 @@ void EventDispatcherCollection::addEventListener(std::string eventName, void (*f
 {
     if (events.find(eventName) == events.end())
     {
-        // not found
+        // not found, initialize
         events[eventName] = EventDispatcher();
     }
     events[eventName].addListener(f);
@@ -62,12 +73,14 @@ void EventDispatcherCollection::addEventListener(std::string eventName, void (*f
 void EventDispatcherCollection::dispatchEvent(std::string eventName, int i)
 {
     if (events.find(eventName) == events.end()) {
-        // not fouind return
+        // not found return
         return;
     }
 
     events[eventName].dispatchEvent(i);
 }
+
+
 
 int main()
 {
