@@ -23,7 +23,7 @@ class EventDispatcher
   public:
     void addListener(void (*f)(int));
     void removeListener(void (*f)(int));
-    virtual void dispatchEvent(int i);
+    void dispatchEvent(int i);
 
   private:
     std::vector<void (*)(int)> mListeners;
@@ -36,7 +36,6 @@ void EventDispatcher::addListener(void (*f)(int))
 
 void EventDispatcher::removeListener(void (*f)(int))
 {
-
 }
 
 void EventDispatcher::dispatchEvent(int i)
@@ -63,7 +62,7 @@ class EventDispatcherCollection
 void EventDispatcherCollection::addEventListener(std::string eventName, void (*f)(int))
 {
     if (events.find(eventName) == events.end())
-    {
+    { 
         // not found, initialize
         events[eventName] = EventDispatcher();
     }
@@ -72,15 +71,14 @@ void EventDispatcherCollection::addEventListener(std::string eventName, void (*f
 
 void EventDispatcherCollection::dispatchEvent(std::string eventName, int i)
 {
-    if (events.find(eventName) == events.end()) {
+    if (events.find(eventName) == events.end())
+    {
         // not found return
         return;
     }
 
     events[eventName].dispatchEvent(i);
 }
-
-
 
 int main()
 {
