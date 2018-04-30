@@ -33,3 +33,5 @@
 main
 
 .vscode
+.vscode/**
+.vscode/settings.json
